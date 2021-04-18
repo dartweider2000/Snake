@@ -1,3 +1,3 @@
 export default interface IWidgetBehavior{
-	render(cx, info : any) : void
+	render(cx : CanvasRenderingContext2D, info : any) : void
 }

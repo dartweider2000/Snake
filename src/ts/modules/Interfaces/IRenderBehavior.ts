@@ -1,3 +1,3 @@
 export default interface IRenderBehavior{
-	render(cx) : void
+	render(cx : CanvasRenderingContext2D) : void
 }

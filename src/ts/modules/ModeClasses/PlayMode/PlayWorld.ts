@@ -1,14 +1,14 @@
 //import Snake from '../../PlayObjects/Snake'
-//import Level from '../../PlayObjects/Level'
+import Level from '../../PlayObjects/Level'
 import IDataBehavior from '../../Interfaces/IDataBehavior'
 
 export default class PlayWorld implements IDataBehavior{
 	private snake; //: Snake;
-	private level; //: Level;
+	private level : Level;
 	private score : number;
 
 	constructor(){
-
+		this.level = new Level();
 	}
 
 	public update(activeKeys) : void{
@@ -22,4 +22,12 @@ export default class PlayWorld implements IDataBehavior{
 	public set Score(score : number){
 		this.score = score;
 	}
+
+	public get Level() : Level{
+		return this.level;
+	}
+
+	// public get Snake() : Snake{
+	// 	return this.snake;
+	// }
 }
