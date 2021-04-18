@@ -3,6 +3,7 @@ import PlayObject from '../AbstractClasses/PlayObject'
 import Grass from './Grass'
 import Food from './Food'
 import {LevelSize} from '../consts'
+import Snake from '../PlayObjects/Snake'
 
 export default class Level extends PlayObject{
 	private map : Grass[][];
@@ -26,6 +27,12 @@ export default class Level extends PlayObject{
 			for(let i = 0; i < this.width; i++){
 				this.map[j][i] = new Grass(i, j);
 			}
-		} 
+		}
+
+		this.food = new Food(2, 2);
+	}
+
+	public generateFood(snake : Snake) : void{
+
 	}
 }

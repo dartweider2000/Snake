@@ -1,4 +1,4 @@
-//import Snake from '../../PlayObjects/Snake'
+import Snake from '../../PlayObjects/Snake'
 import Level from '../../PlayObjects/Level'
 import IDataBehavior from '../../Interfaces/IDataBehavior'
 
