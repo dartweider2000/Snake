@@ -7,9 +7,6 @@ export default class Grass extends PlayObject{
 		super(x, y);
 
 		this.renderBehavior = new GrassRender();
-		this.renderBehavior.render = this.renderBehavior.render.bind(this);
-
 		this.updateBehavior = new NullUpdate();
-		this.updateBehavior.update = this.updateBehavior.update.bind(this)
 	}
 }

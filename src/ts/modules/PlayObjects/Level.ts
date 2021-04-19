@@ -21,10 +21,7 @@ export default class Level extends PlayObject{
 		this.map = [];
 
 		this.renderBehavior = new LevelRender();
-		this.renderBehavior.render = this.renderBehavior.render.bind(this);
-
 		this.updateBehavior = new LevelUpdate();
-		this.updateBehavior.update = this.updateBehavior.update.bind(this);
 
 		for(let j = 0; j < this.height; j++){
 			this.map[j] = [];
@@ -38,5 +35,13 @@ export default class Level extends PlayObject{
 
 	public generateFood(snake : Snake) : void{
 
+	}
+
+	public get Map() : Grass[][]{
+		return this.map;
+	}
+
+	public get Food() : Food{
+		return this.food;
 	}
 }

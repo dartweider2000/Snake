@@ -1,3 +1,5 @@
+import PlayObject from '../AbstractClasses/PlayObject'
+
 export default interface IUpdateBehavior{
-	update(obj : object) : void
+	update(info : object, self : PlayObject) : void
 }

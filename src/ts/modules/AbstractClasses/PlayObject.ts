@@ -25,11 +25,11 @@ export default abstract class PlayObject{
 	}
 
 	public update(obj : object) : void{
-		this.updateBehavior.update(obj);
+		this.updateBehavior.update(obj, this);
 	}
 
 	public render(cx : CanvasRenderingContext2D) : void{
-		this.renderBehavior.render(cx);
+		this.renderBehavior.render(cx, this);
 	}
 
 	public get Left() : number{

@@ -21,17 +21,22 @@ export default class Snake extends PlayObject{
 		this.alive = true;
 
 		this.renderBehavior = new SnakeRender();
-		this.renderBehavior.render = this.renderBehavior.render.bind(this);
-
 		this.updateBehavior = new SnakeUpdate();
-		this.updateBehavior.update = this.updateBehavior.update.bind(this);
 	}
 
 	public getArea() : object[]{
-		return [this.head ,...this.tail].reduce<any>((result, obj) => {
+		return [this.Head ,...this.Tail].reduce<any>((result, obj) => {
 			result.push({"Left" : obj.Left, "Top" : obj.Top});
 			return result;
 		}, []); 
+	}
+
+	public get Tail() : Tail[]{
+		return this.tail;
+	}
+
+	public get Head() : Head{
+		return this.head;
 	}
 
 	public get Alive() : boolean{

@@ -13,10 +13,7 @@ export default class Food extends PlayObject{
 		this.eaten = false;
 
 		this.renderBehavior = new FoodRender();
-		this.renderBehavior.render = this.renderBehavior.render.bind(this);
-
 		this.updateBehavior = new NullUpdate();
-		this.updateBehavior.update = this.updateBehavior.update.bind(this)
 	}
 
 	public get Score() : number{
