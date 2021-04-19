@@ -10,11 +10,12 @@ export default class PlayWorld implements IDataBehavior{
 
 	constructor(){
 		this.snake = new Snake((LevelSize.Width - 1) / 2, (LevelSize.Height - 1) / 2);
-		this.level = new Level();
+		this.level = new Level(this.Snake);
 	}
 
 	public update(activeKeys) : void{
-
+		this.Snake.update({"data" : this, "activeKeys" : activeKeys});
+		this.Level.update({"data" : this});
 	}
 
 	public get Score() : number{

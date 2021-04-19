@@ -2,7 +2,7 @@ import LevelRender from './RenderBehaviorClasses/LevelRender'
 import PlayObject from '../AbstractClasses/PlayObject'
 import Grass from './Grass'
 import Food from './Food'
-import {LevelSize} from '../consts'
+import {LevelSize, BLOCK_SIZE} from '../consts'
 import Snake from '../PlayObjects/Snake'
 import LevelUpdate from './UpdateBehaviorClasses/LevelUpdate'
 
@@ -12,7 +12,7 @@ export default class Level extends PlayObject{
 	private width : number;
 	private height : number;
 
-	constructor(){
+	constructor(snake : Snake){
 		super();
 
 		this.width = LevelSize.Width;
@@ -30,11 +30,35 @@ export default class Level extends PlayObject{
 			}
 		}
 
-		this.food = new Food(2, 2);
+		this.generateFood(snake);
 	}
 
-	public generateFood(snake : Snake) : void{
+	private include(array : {Left : number, Top : number}[], obj : {Left : number, Top : number}) : boolean{
+		return array.reduce((result, value : {Left : number, Top : number}) => {
+			if(result)
+				return result;
 
+			if(obj.Left == value.Left && obj.Top == value.Top)
+				return true;
+
+			return false;
+		}, false);
+	}
+
+	private generateFood(snake : Snake) : void{
+		let 
+			x : number = 0,
+			y : number = 0,
+			obj : {Left : number, Top : number};
+
+		do{
+			x = Math.floor(Math.random() * this.width) *  BLOCK_SIZE;
+			y = Math.floor(Math.random() * this.height) *  BLOCK_SIZE;
+
+			obj = {"Left" : x, "Top" : y};
+		}while(this.include(snake.getArea(), obj));
+
+		this.food = new Food(obj.Left / BLOCK_SIZE, obj.Top / BLOCK_SIZE);
 	}
 
 	public get Map() : Grass[][]{

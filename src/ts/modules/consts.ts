@@ -1,4 +1,4 @@
-export {BLOCK_SIZE, LevelSize, Vector}
+export {BLOCK_SIZE, LevelSize, Vector, Ver, Gor}
 
 const parent = document.querySelector('.box') as HTMLElement;
 
@@ -15,3 +15,7 @@ enum Vector{
 	Down,
 	Left
 }
+
+const Ver : Vector[] = [Vector.Up, Vector.Down];
+
+const Gor : Vector[] = [Vector.Left, Vector.Right];
