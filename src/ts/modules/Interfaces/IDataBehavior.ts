@@ -1,3 +1,3 @@
 export default interface IDataBehavior{
-	update(activeKeys) : void;
+	update(activeKeys : Set<string>) : void;
 }

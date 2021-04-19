@@ -3,7 +3,7 @@ import Play from './ModeClasses/PlayMode/Play'
 
 export default class Game{
 	private mode : ModeObject;
-	private activeKeys;
+	private activeKeys : Set<string>;
 
 	constructor(){
 		this.mode = new Play();

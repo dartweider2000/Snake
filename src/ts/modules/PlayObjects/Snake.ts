@@ -22,12 +22,50 @@ export default class Snake extends PlayObject{
 		this.updateBehavior = new SnakeUpdate();
 	}
 
-	public move() : void{
+	public move(newVector : Vector) : void{
+		let coord : {IndexX : number, IndexY : number} = this.getCoord(this.Vector, this.Head);
+
+
+	}
+
+	private blocksJump(coord : {IndexX : number, IndexY : number}) : void{
 		
 	}
 
+	private changeVector(newVector : Vector) : void{
+		this.Vector = newVector;
+	}
+
+	public vectorNow(activeKeys : Set<string>) : Vector{
+		return this.findOutVector(this.chooseMoveKey(activeKeys));
+	}
+
+	private chooseMoveKey(activeKeys : Set<string>) : string{
+		let key : string = '';
+
+		activeKeys.forEach(value => {
+			if(/^Arrow/.test(value))
+				key = value;
+		});
+
+		return key;
+	}
+
+	private findOutVector(key : string) : Vector{
+		if(key === 'ArrowUp')
+			return Vector.Up;
+		else if(key === 'ArrowDown')
+			return Vector.Down;
+		else if(key === 'ArrowRight')
+			return Vector.Right;
+		else if(key === 'ArrowLeft')
+			return Vector.Left;
+		else
+			return this.Vector;
+	}
+
 	public getArea() : {IndexX : number, IndexY : number}[]{
-		return [this.Head ,...this.Tail].reduce<any>((result, obj) => {
+		return [this.Head, ...this.Tail].reduce<any>((result, obj) => {
 			result.push({"IndexX" : obj.IndexX, "IndexY" : obj.IndexY});
 			return result;
 		}, []); 
@@ -47,9 +85,7 @@ export default class Snake extends PlayObject{
 		return {IndexX : IndexX, IndexY : IndexY};
 	}
 
-	private getCoord(vectors : Vector[], mark : (Head | Tail)) : {IndexX : number, IndexY : number}{
-		let newVector = vectors[vectors.indexOf(this.Vector) ^ 1];
-
+	private getCoord(newVector : Vector, mark : (Head | Tail)) : {IndexX : number, IndexY : number}{
 		if(newVector == Vector.Up)
 			return this.checkCoord(mark.IndexX, mark.IndexY - 1);
 		else if (newVector == Vector.Down)
@@ -60,7 +96,7 @@ export default class Snake extends PlayObject{
 			return this.checkCoord(mark.IndexX - 1, mark.IndexY);	
 	}
 
-	private add() : void{
+	public add() : void{
 		let 
 			mark : (Head | Tail),
 			coord : {IndexX : number, IndexY : number};
@@ -71,9 +107,9 @@ export default class Snake extends PlayObject{
 			mark = this.Tail[this.Tail.length - 1];
 
 		if(Ver.includes(mark.Vector))
-			coord = this.getCoord(Ver, mark);
+			coord = this.getCoord(Ver[Ver.indexOf(mark.Vector) ^ 1], mark);
 		else
-			coord = this.getCoord(Gor, mark);
+			coord = this.getCoord(Gor[Gor.indexOf(mark.Vector) ^ 1], mark);
 
 		this.Tail.push(new Tail(coord.IndexX, coord.IndexY, mark.Vector));
 	}
