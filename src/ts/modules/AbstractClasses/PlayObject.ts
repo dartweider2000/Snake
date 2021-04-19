@@ -1,4 +1,5 @@
 import IRenderBehavior from '../Interfaces/IRenderBehavior'
+import IUpdateBehavior from '../Interfaces/IUpdateBehavior'
 import {BLOCK_SIZE} from '../consts'
 
 export default abstract class PlayObject{
@@ -7,6 +8,7 @@ export default abstract class PlayObject{
 	protected size : number;
 
 	protected renderBehavior : IRenderBehavior;
+	protected updateBehavior : IUpdateBehavior;
 
 	constructor(x : number, y : number)
 	constructor()
@@ -20,6 +22,10 @@ export default abstract class PlayObject{
 		this.x = x * this.Size;
 		this.y = y * this.Size;
 
+	}
+
+	public update(obj : object) : void{
+		this.updateBehavior.update(obj);
 	}
 
 	public render(cx : CanvasRenderingContext2D) : void{

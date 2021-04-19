@@ -4,6 +4,7 @@ import Grass from './Grass'
 import Food from './Food'
 import {LevelSize} from '../consts'
 import Snake from '../PlayObjects/Snake'
+import LevelUpdate from './UpdateBehaviorClasses/LevelUpdate'
 
 export default class Level extends PlayObject{
 	private map : Grass[][];
@@ -21,6 +22,9 @@ export default class Level extends PlayObject{
 
 		this.renderBehavior = new LevelRender();
 		this.renderBehavior.render = this.renderBehavior.render.bind(this);
+
+		this.updateBehavior = new LevelUpdate();
+		this.updateBehavior.update = this.updateBehavior.update.bind(this);
 
 		for(let j = 0; j < this.height; j++){
 			this.map[j] = [];

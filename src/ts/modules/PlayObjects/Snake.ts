@@ -3,6 +3,7 @@ import SnakeRender from './RenderBehaviorClasses/SnakeRender'
 import Tail from './Tail'
 import Head from './Head'
 import {Vector} from '../consts'
+import SnakeUpdate from './UpdateBehaviorClasses/SnakeUpdate'
 
 export default class Snake extends PlayObject{
 	private tail : Tail[];
@@ -21,6 +22,9 @@ export default class Snake extends PlayObject{
 
 		this.renderBehavior = new SnakeRender();
 		this.renderBehavior.render = this.renderBehavior.render.bind(this);
+
+		this.updateBehavior = new SnakeUpdate();
+		this.updateBehavior.update = this.updateBehavior.update.bind(this);
 	}
 
 	public getArea() : object[]{

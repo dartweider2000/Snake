@@ -1,13 +1,15 @@
 import Snake from '../../PlayObjects/Snake'
 import Level from '../../PlayObjects/Level'
 import IDataBehavior from '../../Interfaces/IDataBehavior'
+import {LevelSize} from '../../consts'
 
 export default class PlayWorld implements IDataBehavior{
-	private snake; //: Snake;
+	private snake : Snake;
 	private level : Level;
 	private score : number;
 
 	constructor(){
+		this.snake = new Snake((LevelSize.Width - 1) / 2, (LevelSize.Height - 1) / 2);
 		this.level = new Level();
 	}
 
@@ -27,7 +29,7 @@ export default class PlayWorld implements IDataBehavior{
 		return this.level;
 	}
 
-	// public get Snake() : Snake{
-	// 	return this.snake;
-	// }
+	public get Snake() : Snake{
+		return this.snake;
+	}
 }

@@ -9,5 +9,6 @@ export default class PlayView extends ViewObject implements IViewBehavior{
 
 	public render(data : PlayWorld) : void{
 		data.Level.render(this.cx);
+		data.Snake.render(this.cx);
 	}
 }

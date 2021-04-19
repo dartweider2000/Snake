@@ -1,5 +1,6 @@
 import PlayObject from '../AbstractClasses/PlayObject'
 import FoodRender from './RenderBehaviorClasses/FoodRender'
+import NullUpdate from './UpdateBehaviorClasses/NullUpdate'
 
 export default class Food extends PlayObject{
 	private score : number;
@@ -13,6 +14,9 @@ export default class Food extends PlayObject{
 
 		this.renderBehavior = new FoodRender();
 		this.renderBehavior.render = this.renderBehavior.render.bind(this);
+
+		this.updateBehavior = new NullUpdate();
+		this.updateBehavior.update = this.updateBehavior.update.bind(this)
 	}
 
 	public get Score() : number{
