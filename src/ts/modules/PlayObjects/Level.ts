@@ -33,12 +33,12 @@ export default class Level extends PlayObject{
 		this.generateFood(snake);
 	}
 
-	private include(array : {Left : number, Top : number}[], obj : {Left : number, Top : number}) : boolean{
-		return array.reduce((result, value : {Left : number, Top : number}) => {
+	private include(array : {IndexX : number, IndexY : number}[], obj : {IndexX : number, IndexY : number}) : boolean{
+		return array.reduce((result, value : {IndexX : number, IndexY : number}) => {
 			if(result)
 				return result;
 
-			if(obj.Left == value.Left && obj.Top == value.Top)
+			if(obj.IndexX == value.IndexX && obj.IndexY == value.IndexY)
 				return true;
 
 			return false;
@@ -49,16 +49,16 @@ export default class Level extends PlayObject{
 		let 
 			x : number = 0,
 			y : number = 0,
-			obj : {Left : number, Top : number};
+			obj : {IndexX : number, IndexY : number};
 
 		do{
-			x = Math.floor(Math.random() * this.width) *  BLOCK_SIZE;
-			y = Math.floor(Math.random() * this.height) *  BLOCK_SIZE;
+			x = Math.floor(Math.random() * this.width);
+			y = Math.floor(Math.random() * this.height);
 
-			obj = {"Left" : x, "Top" : y};
+			obj = {"IndexX" : x, "IndexY" : y};
 		}while(this.include(snake.getArea(), obj));
 
-		this.food = new Food(obj.Left / BLOCK_SIZE, obj.Top / BLOCK_SIZE);
+		this.food = new Food(obj.IndexX, obj.IndexY);
 	}
 
 	public get Map() : Grass[][]{
