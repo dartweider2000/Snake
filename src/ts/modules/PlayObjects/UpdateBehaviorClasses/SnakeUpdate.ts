@@ -9,7 +9,7 @@ export default class SnakeUpdate implements IUpdateBehavior{
 			return;
 
 		self.move(activeKeys);
-		(data as PlayWorld).objectOnPath();
+		self.reaction((data as PlayWorld).objectOnPath());
 
 		self.wait();
 	}

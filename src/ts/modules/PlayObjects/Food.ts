@@ -23,4 +23,8 @@ export default class Food extends PlayObject{
 	public get Eaten() : boolean{
 		return this.eaten;
 	}
+
+	public set Eaten(eaten : boolean){
+		this.eaten = eaten;
+	}
 }

@@ -4,6 +4,7 @@ import Tail from './Tail'
 import Head from './Head'
 import {Vector, Ver, Gor, LevelSize} from '../consts'
 import SnakeUpdate from './UpdateBehaviorClasses/SnakeUpdate'
+import Food from './Food'
 
 export default class Snake extends PlayObject{
 	private tail : Tail[];
@@ -18,45 +19,62 @@ export default class Snake extends PlayObject{
 		this.head = new Head(x, y, Vector.Left);
 
 		this.alive = true;
+		this.doMove = true;
 
 		this.renderBehavior = new SnakeRender();
 		this.updateBehavior = new SnakeUpdate();
 	}
 
-	public skan() : void{
+	private foodReaction(obj : Food) : void{
+		obj.Eaten = true;
+		this.add();
+	}
+
+	private tailReaction(obj : Tail) : void{
 
 	}
 
-	public async wait() : Promise<any>{
+	public reaction(obj : (Tail | Food)) : void{
+		if(obj instanceof Food)
+			this.foodReaction(obj);
+		else if(obj instanceof Tail)
+			this.tailReaction(obj);
+	}
+
+	public wait() : Promise<any>{
 		return new Promise((resolve, reject) => {
 			this.DoMove = false;
 
 			const timer = setTimeout(() => {
 				this.DoMove = true;
 				resolve(null);
-			}, 50);
+			}, 100);
 		});
 	}
 
 	public move(activeKeys : Set<string>) : void{
-		this.blocksJump(this.getCoord(this.vectorNow(activeKeys), this.Head));
+		let newVector : Vector = this.vectorNow(activeKeys);
+		this.blocksJump(this.getCoord(newVector, this.Head), newVector);
 	}
 
-	private blocksJump(coord : {IndexX : number, IndexY : number}) : void{		
+	private blocksJump(coord : {IndexX : number, IndexY : number}, newVector : Vector) : void{		
 		[this.Head, ...this.Tail].reduce<any>(
-			(storage : {saveCoord : {IndexX : number, IndexY : number}, giveGoord : {IndexX : number, IndexY : number}}, 
+			(storage : {saveCoord : {IndexX : number, IndexY : number, Vector : Vector}, giveGoord : {IndexX : number, IndexY : number, Vector : Vector}}, 
 				obj : (Head | Tail)
 				) => {
 					storage.saveCoord.IndexX = obj.IndexX;
 					storage.saveCoord.IndexY = obj.IndexY;
+					storage.saveCoord.Vector = obj.Vector;
 
 					obj.IndexX = storage.giveGoord.IndexX;
 					obj.IndexY = storage.giveGoord.IndexY;
+					obj.Vector = storage.giveGoord.Vector;
 
 					storage.giveGoord.IndexX = storage.saveCoord.IndexX;
 					storage.giveGoord.IndexY = storage.saveCoord.IndexY;
+					storage.giveGoord.Vector = storage.saveCoord.Vector;
 				}
-		, {saveCoord : {IndexX : null, IndexY : null}, giveGoord : {IndexX : coord.IndexX, IndexY : coord.IndexY}});
+		, {saveCoord : {IndexX : null, IndexY : null, Vector : null}, giveGoord : {IndexX : coord.IndexX, IndexY : coord.IndexY, Vector : newVector}});
 	}
 
 	private changeVector(newVector : Vector) : void{
@@ -130,7 +148,7 @@ export default class Snake extends PlayObject{
 			return this.checkCoord(mark.IndexX - 1, mark.IndexY);	
 	}
 
-	public add() : void{
+	private add() : void{
 		let 
 			mark : (Head | Tail),
 			coord : {IndexX : number, IndexY : number};

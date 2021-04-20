@@ -12,11 +12,13 @@ export default class Game{
 		this.loop = this.loop.bind(this);
 
 		document.addEventListener("keydown", ({code}) => {
-			console.log(code);
+			this.activeKeys.add(code);
+			console.log(this.activeKeys);
 		});
 
 		document.addEventListener("keyup", ({code}) => {
-			console.log(code);
+			this.activeKeys.delete(code);
+			console.log(this.activeKeys);
 		});
 	}
 

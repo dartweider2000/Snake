@@ -20,7 +20,7 @@ export default class PlayWorld implements IDataBehavior{
 		this.Level.update({"data" : this});
 	}
 
-	public objectOnPath() : (Tail | Food | null){
+	public objectOnPath() : (Tail | Food){
 		for(let obj of [this.Level.Food, ...this.Snake.Tail]){
 			if(obj.IndexX === this.Snake.Head.IndexX && obj.IndexY === this.Snake.Head.IndexY)
 				return obj;
