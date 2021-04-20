@@ -5,7 +5,7 @@ import PlayWorld from '../../ModeClasses/PlayMode/PlayWorld'
 
 export default class SnakeUpdate implements IUpdateBehavior{
 	public update({data, activeKeys}, self : Snake) : void{
-		if(!self.DoMove)
+		if(!self.DoMove || !self.Alive)
 			return;
 
 		self.move(activeKeys);

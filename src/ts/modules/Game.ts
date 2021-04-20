@@ -6,7 +6,7 @@ export default class Game{
 	private activeKeys : Set<string>;
 
 	constructor(){
-		this.mode = new Play();
+		this.mode = new Play(this);
 		this.activeKeys = new Set();
 
 		this.loop = this.loop.bind(this);
@@ -18,14 +18,18 @@ export default class Game{
 	}
 
 	private loop() : void{
-		this.mode.Data.update(this.activeKeys);
-		this.mode.View.render(this.mode.Data);
+		this.Mode.Data.update(this.activeKeys);
+		this.Mode.View.render(this.mode.Data);
 
 		requestAnimationFrame(this.loop);
 	}
 
 	public start() : void{
 		this.loop();
+	}
+
+	public get Mode() : ModeObject{
+		return this.mode;
 	}
 
 	public set Mode(mode : ModeObject){

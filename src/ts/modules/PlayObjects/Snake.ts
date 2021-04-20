@@ -34,8 +34,8 @@ export default class Snake extends PlayObject{
 		this.add();
 	}
 
-	private tailReaction(obj : Tail) : never{
-		throw new Error();
+	private tailReaction(obj : Tail) : void{
+		this.Alive = false;
 	}
 
 	public reaction(obj : (Tail | Food)) : void{
@@ -182,6 +182,10 @@ export default class Snake extends PlayObject{
 
 	public get Alive() : boolean{
 		return this.alive;
+	}
+
+	public set Alive(alive : boolean){
+		this.alive = alive;
 	}
 
 	public get Vector() : Vector{

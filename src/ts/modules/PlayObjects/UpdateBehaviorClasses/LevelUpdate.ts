@@ -4,7 +4,7 @@ import PlayWorld from '../../ModeClasses/PlayMode/PlayWorld'
 
 export default class LevelUpdate implements IUpdateBehavior{
 	public update({data}, self : Level) : void{
-		if(self.isEaten())
+		if(self.isEaten() && (data as PlayWorld).isAlive())
 			self.generateFood((data as PlayWorld).Snake);
 	}
 }
