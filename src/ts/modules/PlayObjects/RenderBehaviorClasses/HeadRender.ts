@@ -4,6 +4,6 @@ import Head from '../Head'
 export default class HeadRender implements IRenderBehavior{
 	public render(cx : CanvasRenderingContext2D, self : Head) : void{
 		cx.fillStyle = "red";
-		cx.fillRect(self.Left, self.Top, self.Size, self.Size);
+		cx.fillRect(self.Left + 2.5, self.Top + 2.5, self.Size - 5, self.Size - 5);
 	}
 }

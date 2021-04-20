@@ -25,13 +25,17 @@ export default class Snake extends PlayObject{
 		this.updateBehavior = new SnakeUpdate();
 	}
 
+	public clearActiveKeys(activeKeys : Set<string>) : void{
+		activeKeys.clear();
+	}
+
 	private foodReaction(obj : Food) : void{
 		obj.Eaten = true;
 		this.add();
 	}
 
-	private tailReaction(obj : Tail) : void{
-
+	private tailReaction(obj : Tail) : never{
+		throw new Error();
 	}
 
 	public reaction(obj : (Tail | Food)) : void{
@@ -48,7 +52,7 @@ export default class Snake extends PlayObject{
 			const timer = setTimeout(() => {
 				this.DoMove = true;
 				resolve(null);
-			}, 100);
+			}, 65);
 		});
 	}
 
@@ -61,7 +65,7 @@ export default class Snake extends PlayObject{
 		[this.Head, ...this.Tail].reduce<any>(
 			(storage : {saveCoord : {IndexX : number, IndexY : number, Vector : Vector}, giveGoord : {IndexX : number, IndexY : number, Vector : Vector}}, 
 				obj : (Head | Tail)
-				) => {
+				) => {				
 					storage.saveCoord.IndexX = obj.IndexX;
 					storage.saveCoord.IndexY = obj.IndexY;
 					storage.saveCoord.Vector = obj.Vector;
@@ -73,6 +77,8 @@ export default class Snake extends PlayObject{
 					storage.giveGoord.IndexX = storage.saveCoord.IndexX;
 					storage.giveGoord.IndexY = storage.saveCoord.IndexY;
 					storage.giveGoord.Vector = storage.saveCoord.Vector;
+
+					return storage;
 				}
 		, {saveCoord : {IndexX : null, IndexY : null, Vector : null}, giveGoord : {IndexX : coord.IndexX, IndexY : coord.IndexY, Vector : newVector}});
 	}
@@ -81,11 +87,11 @@ export default class Snake extends PlayObject{
 		this.Vector = newVector;
 	}
 
-	private vectorNow(activeKeys : Set<string>) : Vector{
+	public vectorNow(activeKeys : Set<string>) : Vector{
 		return this.correctingVector(this.findOutVector(this.chooseMoveKey(activeKeys)));
 	}
 
-	private chooseMoveKey(activeKeys : Set<string>) : string{
+	public chooseMoveKey(activeKeys : Set<string>) : string{
 		let key : string = '';
 
 		activeKeys.forEach(value => {

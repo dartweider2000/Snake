@@ -1,5 +1,5 @@
 import PlayObject from '../AbstractClasses/PlayObject'
-import TailRender from './RenderBehaviorClasses/HeadRender'
+import TailRender from './RenderBehaviorClasses/TailRender'
 import NullUpdate from './UpdateBehaviorClasses/NullUpdate'
 import {Vector} from '../consts'
 
