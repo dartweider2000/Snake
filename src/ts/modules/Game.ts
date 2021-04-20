@@ -15,11 +15,6 @@ export default class Game{
 			this.activeKeys.add(code);
 			console.log(this.activeKeys);
 		});
-
-		document.addEventListener("keyup", ({code}) => {
-			this.activeKeys.delete(code);
-			console.log(this.activeKeys);
-		});
 	}
 
 	private loop() : void{

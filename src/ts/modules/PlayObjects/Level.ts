@@ -33,6 +33,10 @@ export default class Level extends PlayObject{
 		this.generateFood(snake);
 	}
 
+	public isEaten() : boolean{
+		return this.Food.Eaten;
+	}
+
 	private include(array : {IndexX : number, IndexY : number}[], obj : {IndexX : number, IndexY : number}) : boolean{
 		return array.reduce((result, value : {IndexX : number, IndexY : number}) => {
 			if(result)
@@ -45,7 +49,7 @@ export default class Level extends PlayObject{
 		}, false);
 	}
 
-	private generateFood(snake : Snake) : void{
+	public generateFood(snake : Snake) : void{
 		let 
 			x : number = 0,
 			y : number = 0,

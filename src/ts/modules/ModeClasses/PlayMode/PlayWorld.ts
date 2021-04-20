@@ -11,7 +11,7 @@ export default class PlayWorld implements IDataBehavior{
 	private score : number;
 
 	constructor(){
-		this.snake = new Snake((LevelSize.Width - 1) / 2, (LevelSize.Height - 1) / 2);
+		this.snake = new Snake(~~((LevelSize.Width - 1) / 2), ~~((LevelSize.Height - 1) / 2));
 		this.level = new Level(this.Snake);
 	}
 
