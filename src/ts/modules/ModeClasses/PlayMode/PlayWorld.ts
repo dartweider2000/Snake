@@ -2,6 +2,8 @@ import Snake from '../../PlayObjects/Snake'
 import Level from '../../PlayObjects/Level'
 import IDataBehavior from '../../Interfaces/IDataBehavior'
 import {LevelSize} from '../../consts'
+import Tail from '../../PlayObjects/Tail'
+import Food from '../../PlayObjects/Food'
 
 export default class PlayWorld implements IDataBehavior{
 	private snake : Snake;
@@ -16,6 +18,15 @@ export default class PlayWorld implements IDataBehavior{
 	public update(activeKeys) : void{
 		this.Snake.update({"data" : this, "activeKeys" : activeKeys});
 		this.Level.update({"data" : this});
+	}
+
+	public objectOnPath() : (Tail | Food | null){
+		for(let obj of [this.Level.Food, ...this.Snake.Tail]){
+			if(obj.IndexX === this.Snake.Head.IndexX && obj.IndexY === this.Snake.Head.IndexY)
+				return obj;
+		}
+
+		return null;
 	}
 
 	public get Score() : number{

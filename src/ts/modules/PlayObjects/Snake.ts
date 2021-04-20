@@ -9,6 +9,7 @@ export default class Snake extends PlayObject{
 	private tail : Tail[];
 	private head : Head;
 	private alive : boolean;
+	private doMove : boolean;
 
 	constructor(x : number, y : number){
 		super(x, y);
@@ -22,22 +23,48 @@ export default class Snake extends PlayObject{
 		this.updateBehavior = new SnakeUpdate();
 	}
 
-	public move(newVector : Vector) : void{
-		let coord : {IndexX : number, IndexY : number} = this.getCoord(this.Vector, this.Head);
-
+	public skan() : void{
 
 	}
 
-	private blocksJump(coord : {IndexX : number, IndexY : number}) : void{
-		
+	public async wait() : Promise<any>{
+		return new Promise((resolve, reject) => {
+			this.DoMove = false;
+
+			const timer = setTimeout(() => {
+				this.DoMove = true;
+				resolve(null);
+			}, 50);
+		});
+	}
+
+	public move(activeKeys : Set<string>) : void{
+		this.blocksJump(this.getCoord(this.vectorNow(activeKeys), this.Head));
+	}
+
+	private blocksJump(coord : {IndexX : number, IndexY : number}) : void{		
+		[this.Head, ...this.Tail].reduce<any>(
+			(storage : {saveCoord : {IndexX : number, IndexY : number}, giveGoord : {IndexX : number, IndexY : number}}, 
+				obj : (Head | Tail)
+				) => {
+					storage.saveCoord.IndexX = obj.IndexX;
+					storage.saveCoord.IndexY = obj.IndexY;
+
+					obj.IndexX = storage.giveGoord.IndexX;
+					obj.IndexY = storage.giveGoord.IndexY;
+
+					storage.giveGoord.IndexX = storage.saveCoord.IndexX;
+					storage.giveGoord.IndexY = storage.saveCoord.IndexY;
+				}
+		, {saveCoord : {IndexX : null, IndexY : null}, giveGoord : {IndexX : coord.IndexX, IndexY : coord.IndexY}});
 	}
 
 	private changeVector(newVector : Vector) : void{
 		this.Vector = newVector;
 	}
 
-	public vectorNow(activeKeys : Set<string>) : Vector{
-		return this.findOutVector(this.chooseMoveKey(activeKeys));
+	private vectorNow(activeKeys : Set<string>) : Vector{
+		return this.correctingVector(this.findOutVector(this.chooseMoveKey(activeKeys)));
 	}
 
 	private chooseMoveKey(activeKeys : Set<string>) : string{
@@ -63,6 +90,13 @@ export default class Snake extends PlayObject{
 		else
 			return this.Vector;
 	}
+
+	private correctingVector(newVector : Vector) : Vector{
+		if(Ver.includes(this.Vector) && Ver.includes(newVector) || Gor.includes(this.Vector) && Gor.includes(newVector))
+			return this.Vector;
+		else
+			return newVector;
+	} 
 
 	public getArea() : {IndexX : number, IndexY : number}[]{
 		return [this.Head, ...this.Tail].reduce<any>((result, obj) => {
@@ -132,5 +166,13 @@ export default class Snake extends PlayObject{
 
 	public set Vector(vector : Vector){
 		this.Head.Vector = vector;
+	}
+
+	public get DoMove() : boolean{
+		return this.doMove;
+	}
+
+	public set DoMove(doMove : boolean){
+		this.doMove = doMove;
 	}
 }

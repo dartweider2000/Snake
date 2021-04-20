@@ -1,14 +1,16 @@
 import IUpdateBehavior from '../../Interfaces/IUpdateBehavior'
 import Snake from '../Snake'
 import {Vector} from '../../consts'
+import PlayWorld from '../../ModeClasses/PlayMode/PlayWorld'
 
 export default class SnakeUpdate implements IUpdateBehavior{
 	public update({data, activeKeys}, self : Snake) : void{
-		let vector : Vector = self.vectorNow(activeKeys);
+		if(!self.DoMove)
+			return;
 
-		//if(vector !== self.Vector)
-			//self.changeVector(vector);
+		self.move(activeKeys);
+		(data as PlayWorld).objectOnPath();
 
-
+		self.wait();
 	}
 }

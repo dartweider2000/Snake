@@ -32,6 +32,14 @@ export default abstract class PlayObject{
 		this.renderBehavior.render(cx, this);
 	}
 
+	public set IndexX(indexX){
+		this.Left = indexX * this.Size;
+	}
+
+	public set IndexY(indexY){
+		this.Top = indexY * this.Size;
+	}
+
 	public get IndexX() : number{
 		return this.Left / this.Size;
 	}
