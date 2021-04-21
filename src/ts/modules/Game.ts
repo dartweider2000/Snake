@@ -13,7 +13,7 @@ export default class Game{
 
 		document.addEventListener("keydown", ({code}) => {
 			this.activeKeys.add(code);
-			console.log(this.activeKeys);
+			// console.log(this.activeKeys);
 		});
 	}
 

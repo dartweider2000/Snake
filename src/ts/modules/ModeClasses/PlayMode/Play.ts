@@ -13,6 +13,6 @@ export default class Play extends ModeObject{
 	}
 
 	public giveResult() : void{
-		this.Game.Mode = new Result(this.Game);
+		this.Game.Mode = new Result(this.Game, (this.Data as PlayWorld).Score);
 	}
 }

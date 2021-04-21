@@ -12,4 +12,12 @@ export default abstract class ViewObject{
 		this.canv.width = this.parent.offsetWidth;
 		this.canv.height = this.parent.offsetHeight;
 	}
+
+	public get Canv() : HTMLCanvasElement{
+		return this.canv;
+	}
+
+	public get CX() : CanvasRenderingContext2D{
+		return this.cx;
+	}
 }

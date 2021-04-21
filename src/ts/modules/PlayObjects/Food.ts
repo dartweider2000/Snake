@@ -9,7 +9,7 @@ export default class Food extends PlayObject{
 	constructor(x : number, y : number){
 		super(x, y);
 
-		this.score = 10;
+		this.score = 1;
 		this.eaten = false;
 
 		this.renderBehavior = new FoodRender();

@@ -16,7 +16,7 @@ export default abstract class PlayObject{
 	constructor(x ?: any, y ?: any){
 		if(x === undefined)
 			return;
-
+		
 		this.size = BLOCK_SIZE;
 
 		this.x = x * this.Size;

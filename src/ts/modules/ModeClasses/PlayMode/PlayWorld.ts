@@ -16,6 +16,7 @@ export default class PlayWorld implements IDataBehavior{
 		this.snake = new Snake(~~((LevelSize.Width - 1) / 2), ~~((LevelSize.Height - 1) / 2));
 		this.level = new Level(this.Snake);
 		this.play = play;
+		this.score = 0;
 	}
 
 	public update(activeKeys : Set<string>) : void{
@@ -33,6 +34,10 @@ export default class PlayWorld implements IDataBehavior{
 		}
 
 		return null;
+	}
+
+	public addScore(score : number) : void{
+		this.Score += score;
 	}
 
 	public isAlive() : boolean{
